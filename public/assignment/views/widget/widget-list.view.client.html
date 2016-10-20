@@ -1,0 +1,68 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text  navbar-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link navbar-list-left">
+         <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </p>
+
+        <div class="navbar-text navbar-header-font">
+            Widgets
+        </div>
+
+        <p class="navbar-text pull-right navbar-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/choose"
+               class="navbar-link">
+         <span class="glyphicon glyphicon-plus">
+          </span>
+            </a>
+        </p>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <ul class="list-group ">
+        <li ng-repeat="widget in model.widgets" class="list-group-item">
+            <div class="relative-position" ng-switch on="widget.widgetType">
+                <div ng-switch-when="HEADER" ng-switch on="widget.size" class="">
+                    <h1 ng-switch-when="1">{{widget.text}}</h1>
+                    <h2 ng-switch-when="2">{{widget.text}}</h2>
+                    <h3 ng-switch-when="3">{{widget.text}}</h3>
+                    <h4 ng-switch-when="4">{{widget.text}}</h4>
+                    <h5 ng-switch-when="5">{{widget.text}}</h5>
+                    <h6 ng-switch-when="6">{{widget.text}}</h6>
+                </div>
+                <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)"></div>
+                <img ng-switch-when="IMAGE" src={{widget.url}} width="{{widget.width}}" class="">
+                <iframe ng-switch-when="YOUTUBE" class=""
+                        ng-src={{model.checkSafeYoutubeUrl(widget.url)}} width="{{widget.width}}">
+                </iframe>
+
+                <div class="absolute-position list-element-menu zero-right-padding" ng-switch on="widget.widgetType">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}"
+                       class="navbar-link">
+                        <span class="glyphicon glyphicon-list pull-right widget-list-icon"></span>
+                    </a>
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}" class="navbar-link">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text navbar-right pull-right">
+            <a class="profile-link" href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+
+</nav>

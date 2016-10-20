@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text  navbar-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
+         <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </p>
+
+        <a class="navbar-text navbar-link" href="#">
+            Widget New
+        </a>
+        <!--<p class="navbar-text pull-right navbar-right">
+            <a ng-click="model.updateWidget(model.widget)" class="navbar-link">
+         <span class="glyphicon glyphicon-ok">
+          </span>
+            </a>
+        </p>-->
+    </div>
+</nav>
+
+
+<div class="container-fluid container-fluid-custom-margin">
+
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="text">
+        </div>
+        <div class="form-group">
+            <label for="size">Size</label>
+            <input ng-model="model.widget.size" type="text" class="form-control" id="size" placeholder="Enter Size">
+        </div>
+    </form>
+
+    <a class="btn btn-danger btn-block" ng-click="model.widget.widgetType='HEADER';model.createWidget(model.widget)
+    ">Create</a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text navbar-right pull-right">
+            <a class="profile-link" href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+
+</nav>

@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text  navbar-left">
-            <a href="widget-list.html" class="navbar-link">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
          <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
@@ -28,69 +17,70 @@
 
 <div class="container-fluid">
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
-                Header
+        <li ng-repeat="widget in model.widgetTypes" class="list-group-item">
+            <a ng-click="model.setWidgetCreateFlag(widget)"
+               class="navbar-link">
+                {{widget.text}}
             </a>
         </li>
-        <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+
+
+
+        <!--<li class="list-group-item">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 Label
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
             HTML
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 Text Input
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 Link
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 Button
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-image.html" class="navbar-link">
+            <a href="widget-image.view.client.html" class="navbar-link">
                 Image
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-youtube.html" class="navbar-link">
+            <a href="widget-youtube.view.client.html" class="navbar-link">
                 Youtube
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 DataTable
             </a>
         </li>
         <li class="list-group-item">
-            <a href="widget-heading.html" class="navbar-link">
+            <a href="widget-heading.view.client.html" class="navbar-link">
                 Repeater
             </a>
-        </li>
+        </li>-->
     </ul>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row navbar-text navbar-right pull-right">
-            <a class="profile-link" href="../user/profile.html">
+            <a class="profile-link" href="../user/profile.view.client.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>
 
 </nav>
-
-</body>
-</html>

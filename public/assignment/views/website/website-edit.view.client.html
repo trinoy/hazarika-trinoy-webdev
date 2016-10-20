@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit  Website</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid">
         <div class="col-sm-4 hidden-xs hidden-sm">
             <p class="navbar-text  navbar-left navbar-master-left">
-                <a href="../user/profile.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
                         <span class="glyphicon glyphicon-chevron-left">
                         </span>
                 </a>
@@ -23,7 +13,7 @@
             </div>
 
             <p class="navbar-text pull-right navbar-right">
-                <a href="website-new.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/new" class="navbar-link">
              <span class="glyphicon glyphicon-plus">
               </span>
                 </a>
@@ -32,7 +22,7 @@
 
         <div class="col-sm-12 col-lg-8 col-md-8 col-xs-12">
             <p class="navbar-text  navbar-left hidden-md hidden-lg">
-                <a href="website-list.html" class="navbar-link navbar-detail-left">
+                <a href="#/user/{{model.userId}}/website" class="navbar-link navbar-detail-left">
                  <span class="glyphicon glyphicon-chevron-left">
                  </span>
                 </a>
@@ -44,7 +34,7 @@
             </div>
 
             <p class="navbar-text pull-right navbar-right">
-                <a href="website-list.html" class="navbar-link">
+                <a ng-click="model.updateWebsite(model.website)" class="navbar-link">
                  <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
@@ -56,38 +46,11 @@
     <div class="row-fluid">
         <div class="col-xs-4 col-sm-4 visible-lg-block visible-md-block master-page">
             <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="../page/page-list.html" class="navbar-link">
-                        Address Book App
+                <li ng-repeat="website in model.websites" class="list-group-item">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+                        {{website.name}}
                     </a>
-                    <a href="website-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right">
-                </span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="../page/page-list.html" class="navbar-link">
-                        Blogger
-                    </a>
-                    <a href="website-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right">
-                </span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="../page/page-list.html" class="navbar-link">
-                        Blogging App
-                    </a>
-                    <a href="website-edit.html">
-                <span class="glyphicon glyphicon-cog pull-right">
-                </span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="../page/page-list.html" class="navbar-link">
-                        Script Testing App
-                    </a>
-                    <a href="website-edit.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}">
                 <span class="glyphicon glyphicon-cog pull-right">
                 </span>
                     </a>
@@ -100,17 +63,17 @@
             <form>
                 <div class="form-group">
                     <label for="name">Website Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Name" value="Blogger">
+                    <input ng-model="model.website.name" type="text" class="form-control" id="name" placeholder="Name"
+                           value="Blogger">
                 </div>
                 <div class="form-group">
                     <label for="description">Website Description</label>
-                    <textArea class="form-control" rows="4" id="description"
+                    <textArea ng-model="model.website.description" class="form-control" rows="4" id="description"
                               placeholder="Description">Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs which was brough by google in 2003. Generally, the blogs are hosted by Google at the subdomain blogspot.com. Blogs can also be hosted in the registered custom domain of the user (like www.example.com). A user can have upto 100 blogs per account. He can use multiple accounts to host further</textArea>
                 </div>
 
             </form>
-            <a class="btn btn-danger  btn-block"
-               href="website-list.html">Delete</a>
+            <a ng-click="model.deleteWebsite()" class="btn btn-danger  btn-block" >Delete</a>
         </div>
     </div>
 
@@ -118,11 +81,9 @@
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid">
             <div class="row navbar-text navbar-right pull-right">
-                <a  class="profile-link" href="../user/profile.html">
+                <a  class="profile-link" href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>
         </div>
     </nav>
-</body>
-</html>
