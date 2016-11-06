@@ -7,9 +7,9 @@
             </a>
         </p>
 
-        <div class="navbar-text navbar-header-font">
+        <a class="navbar-brand">
             Widgets
-        </div>
+        </a>
 
         <p class="navbar-text pull-right navbar-right">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/choose"
@@ -23,8 +23,8 @@
 
 
 <div class="container-fluid">
-    <ul class="list-group ">
-        <li ng-repeat="widget in model.widgets" class="list-group-item">
+    <ul id = "wlist" jga-sortable="{{model.pageId}}" class="list-group ">
+        <li  ng-repeat="widget in model.widgets" class="list-group-item">
             <div class="relative-position" ng-switch on="widget.widgetType">
                 <div ng-switch-when="HEADER" ng-switch on="widget.size" class="">
                     <h1 ng-switch-when="1">{{widget.text}}</h1>

@@ -1,21 +1,22 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text  navbar-left">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+               class="navbar-link">
          <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
         </p>
 
-        <a class="navbar-text navbar-link" href="#">
+        <a class="navbar-brand">
             Widget New
         </a>
-       <!-- <p class="navbar-text pull-right navbar-right">
-            <a ng-click="model.updateWidget(model.widget)" class="navbar-link">
-         <span class="glyphicon glyphicon-ok">
-          </span>
-            </a>
-        </p>-->
+        <!-- <p class="navbar-text pull-right navbar-right">
+             <a ng-click="model.updateWidget(model.widget)" class="navbar-link">
+          <span class="glyphicon glyphicon-ok">
+           </span>
+             </a>
+         </p>-->
     </div>
 </nav>
 
@@ -38,17 +39,29 @@
             <label for="width">Width</label>
             <input ng-model="model.widget.width" type="text" class="form-control" id="width" placeholder="100%">
         </div>
-
-        <div class="form-group">
+<!--        <div class="form-group">
             <label for="upload">Upload</label>
             <input type="file" class="form-control" id="upload" placeholder="100%">
-        </div>
+        </div>-->
     </form>
 
-    <a class="btn btn-primary btn-block"
-       href="#">Upload Image</a>
-    <a class="btn btn-danger btn-block"
-       ng-click="model.widget.widgetType='IMAGE'; model.createWidget(model.widget)">Create</a>
+     <form action="/api/upload" method="post" enctype="multipart/form-data">
+        <input name="myFile" type="file" class="form-control"/>
+        <input name="width" value="{{model.widget.width}}" style="display: none"/>
+         <input name="name" value="{{model.widget.name}}" style="display: none"/>
+         <input name="text" value="{{model.widget.text}}" style="display: none"/>
+         <input name="widgetId" value="new" style="display: none"/>
+         <input name="userId" value="{{model.userId}}" style="display: none"/>
+         <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
+         <input name="pageId" value="{{model.pageId}}" style="display: none"/>
+         <input name="url" value="{{model.widget.url}}" style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary">UpdateImage</button>
+    </form>
+
+   <!-- <a class="btn btn-primary btn-block"
+         href="#">Upload Image</a>-->
+     <!-- <a class="btn btn-danger btn-block"
+         ng-click="model.widget.widgetType='IMAGE'; model.createWidget(model.widget)">Create</a>-->
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

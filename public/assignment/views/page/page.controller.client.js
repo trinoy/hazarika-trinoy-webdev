@@ -12,10 +12,13 @@
         vm.websiteId = $routeParams["wid"];
 
         function init() {
-            var pagesLocal = PageService.findPageByWebsiteId(vm.websiteId);
-            if (pagesLocal != undefined) {
-                vm.pages = JSON.parse(JSON.stringify(pagesLocal));
-            }
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
         }
 
         init();
@@ -31,10 +34,13 @@
 
 
         function init() {
-            var pagesLocal = PageService.findPageByWebsiteId(vm.websiteId);
-            if (pagesLocal != undefined) {
-                vm.pages = JSON.parse(JSON.stringify(pagesLocal));
-            }
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
         }
 
 
@@ -42,8 +48,14 @@
 
         function createPage(page) {
             if (page != undefined) {
-                PageService.createPage(vm.websiteId, page);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                PageService.createPage(vm.websiteId, page)
+                    .success(function (page) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
+
             }
         }
 
@@ -60,15 +72,21 @@
 
         function init() {
 
-            var pagesLocal = PageService.findPageByWebsiteId(vm.websiteId);
-            if (pagesLocal != undefined) {
-                vm.pages = JSON.parse(JSON.stringify(pagesLocal));
-            }
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
 
-            var pageLocal = PageService.findPageById(vm.pageId);
-            if (pageLocal != undefined) {
-                vm.page = JSON.parse(JSON.stringify(pageLocal));
-            }
+            PageService.findPageById(vm.pageId)
+                .success(function (page) {
+                    vm.page = page;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
         }
 
         init();
@@ -76,29 +94,27 @@
         function updatePage(page) {
             //$scope.user = user;
             if (page != undefined) {
-                var pageLocal = PageService.updatePage(vm.pageId, vm.page);
+                var pageLocal = PageService.updatePage(vm.pageId, vm.page)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    })
+                    .error(function () {
+                        console.log(data);
+                    });
             }
-            if (pageLocal) {
-                vm.page = JSON.parse(JSON.stringify(pageLocal));
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-            }
-            else {
-                window.alert("Unable to Update");
-            }
-
         }
 
         function deletePage() {
             //$scope.user = user;
             if (vm.pageId != undefined) {
-                PageService.deletePage(vm.pageId);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                PageService.deletePage(vm.pageId)
+                    .success(function (data) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
             }
-            else {
-                window.alert("Unable to delete");
-            }
-
         }
-
     }
 })();

@@ -1,4 +1,4 @@
 (function () {
-    angular.module("WebAppMaker", ["ngRoute",'ui.bootstrap']);
+    angular.module("WebAppMaker", ["ngRoute",'ui.bootstrap','jgaDirectives']);
 })();
 

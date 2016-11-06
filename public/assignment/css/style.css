@@ -144,6 +144,9 @@ a:focus, a:hover{
     width:100%;
 }
 
+.container-top{
+    margin-top: 20px;
+}
 
 #image-container {
     background: url("../image/zika.jpg") no-repeat;

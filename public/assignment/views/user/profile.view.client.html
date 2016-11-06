@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!--<div class="navbar-header">-->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand">
             Profile
         </a>
         <p class="navbar-text pull-right navbar-right">
@@ -15,7 +15,7 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid container-top">
     <form>
         <div class="form-group">
             <label for="username">Username</label>
@@ -40,8 +40,10 @@
 
     <a class="btn btn-primary btn-block"
        href="#/user/{{model.userId}}/website">Websites</a>
-    <a class="btn btn-danger  btn-block"
+    <a class="btn btn-warning  btn-block"
        href="#/login">Logout</a>
+    <a class="btn btn-danger  btn-block"
+       ng-click="model.deleteUser(model.user)">Unregister</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

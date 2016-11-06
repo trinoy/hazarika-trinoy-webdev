@@ -16,93 +16,113 @@
 
         function addAlert() {
             vm.alerts.push({msg: 'Invalid Login Credentials'});
-        };
+        }
 
         function closeAlert(index) {
             vm.alerts.splice(index, 1);
-        };
+        }
 
         function login(user) {
             vm.alerts.pop();
             if (user != undefined) {
-                user = UserService.findUserByCredentials(user.username, user.password);
-            }
-            if (user) {
-                $location.url("/user/" + user._id);
+                var promise = UserService.findUserByCredentials(user.username, user.password);
+                promise
+                    .success(function (user) {
+                        if (user === '0') {
+                            addAlert();
+                        } else {
+                            $location.url("/user/" + user._id);
+                        }
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
             }
             else {
-                //window.alert("Unable to log in. Invalid Credentials");
                 addAlert();
             }
-
         }
-
     }
-
 
     function RegisterController($location, UserService) {
         var vm = this;
-
         vm.register = register;
 
         function register(user) {
             if (user != undefined) {
-                //user._id = Math.floor(Math.random() * 900) + 100;
-                user.firstname = "";
-                user.lastname = "";
-                user = UserService.createUser(user);
+                user.firstName = "Test";
+                user.lastName = "Test";
+                UserService.createUser(user)
+                    .success(function (user) {
+                        if (user === '0') {
+                            //addAlert();
+                        } else {
+                            vm.user = user;
+                            $location.url("/user/" + user._id);
+                        }
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
             }
-            if (user) {
-                $location.url("/user/" + user._id);
-            }
-            else {
-                window.alert("Unable to register");
-            }
-
         }
-
     }
 
-    function ProfileController($scope, $routeParams, UserService) {
+    function ProfileController($location,$routeParams, UserService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
-        vm.updateProfile = updateProfile;
-        vm.init = init;
         vm.title = "hello";
         vm.user = {};
-        //$scope.user = {};
+
+        vm.updateProfile = updateProfile;
+        vm.init = init;
+        vm.deleteUser = deleteUser;
 
         function init() {
-            vm.user = clone(UserService.findUserById(vm.userId));
+            UserService.findUserById(vm.userId)
+                .success(function (user) {
+                    if (user === '0') {
+                        //addAlert();
+                    } else {
+                        vm.user = user;
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
         }
 
         init();
 
-        function clone(obj) {
-            if (null == obj || "object" != typeof obj) return obj;
-            var copy = obj.constructor();
-            for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-            }
-            return copy;
-        }
-
-
         function updateProfile(user) {
-            //$scope.user = user;
             if (user != undefined) {
-                var userOutput = UserService.updateUser(vm.userId, user);
+                UserService.updateUser(vm.userId, user)
+                    .success(function (user) {
+                        if (user === '0') {
+                            //addAlert();
+                        } else {
+                            vm.user = user;
+                        }
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
             }
-            if (userOutput) {
-                vm.user = clone(userOutput);
-                //$scope.model.user.username = userOutput.username;
-                //$location.url("/user/" + user._id);
-            }
-            else {
-                window.alert("Unable to log in. Invalid Credentials");
-            }
-
         }
+
+        function deleteUser(user) {
+            if (user != undefined) {
+                UserService.deleteUser(user._id)
+                    .success(function (data) {
+                        $location.url("/login");
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
+            }
+        }
+
 
     }
+
 })();
