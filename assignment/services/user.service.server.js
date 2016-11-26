@@ -34,7 +34,7 @@ module.exports = function (app, model) {
 
         model.userModel.updateUser(uid, user)
             .then(function (user) {
-                    res.send(user);
+                    res.send(200);
                 },
                 function (error) {
                     res.status(400).send(err);

@@ -46,7 +46,8 @@ module.exports = function(mongoose,app) {
 
             {
                 firstName: user.firstName,
-                lastName : user.lastName
+                lastName : user.lastName,
+                email : user.email
             }
         )
     }

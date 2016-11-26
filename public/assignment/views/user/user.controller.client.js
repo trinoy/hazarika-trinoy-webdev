@@ -100,11 +100,7 @@
             if (user != undefined) {
                 UserService.updateUser(vm.userId, user)
                     .success(function (user) {
-                        if (user === '0') {
-                            //addAlert();
-                        } else {
-                            vm.user = user;
-                        }
+                        init();
                     })
                     .error(function (data) {
                         console.log(data);

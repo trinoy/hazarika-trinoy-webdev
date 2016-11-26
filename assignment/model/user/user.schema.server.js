@@ -6,7 +6,7 @@ module.exports = function(mongoose)
         password  : String,
         firstName : String,
         lastName : String,
-        //email : String,
+        email : String,
        // phone : String,
         //websites : [websiteSchema],
         websites : [{type: mongoose.Schema.Types.ObjectId, ref: 'WebsiteModel'}],
