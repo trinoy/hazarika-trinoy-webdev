@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app, model) {
 
     var users =
         [
@@ -16,38 +16,52 @@ module.exports = function(app) {
 
     function unregisterUser(req, res) {
         var uid = req.params.uid;
-        for(var u in users) {
-            if(users[u]._id == uid) {
-                users.splice(u, 1);
-            }
-        }
-        res.send(200);
+
+        model.userModel.deleteUser(uid)
+            .then(function (user) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(400).send(err);
+
+                }
+            )
     }
 
     function updateUser(req, res) {
         var user = req.body;
         var uid = req.params.uid;
-        for(var u in users) {
-            if(users[u]._id == uid) {
-                users[u] = user;
-            }
-        }
-        res.send(200);
+
+        model.userModel.updateUser(uid, user)
+            .then(function (user) {
+                    res.send(user);
+                },
+                function (error) {
+                    res.status(400).send(err);
+
+                }
+            )
     }
 
     function createUser(req, res) {
         var user = req.body;
-        user._id = (new Date()).getTime().toString();
-        users.push(user);
-        res.send(user);
+        model.userModel.createUser(user)
+            .then(function (user) {
+                    res.send(user);
+                },
+                function (error) {
+                    res.sendStatus(400).send(err);
+
+                }
+            )
     }
 
     function findUser(req, res) {
         var params = req.params;
         var query = req.query;
-        if(query.password && query.username) {
+        if (query.password && query.username) {
             findUserByCredentials(req, res);
-        } else if(query.username) {
+        } else if (query.username) {
             findUserByUsername(req, res);
         }
     }
@@ -55,19 +69,26 @@ module.exports = function(app) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        for(var u in users) {
-            if(users[u].username === username &&
-                users[u].password === password) {
-                res.send(users[u]);
-                return;
-            }
-        }
-        res.send('0');
+        model.userModel.findUserByCredentials(username, password)
+            .then(
+                function (users) {
+                    if (users.length != 0) {
+                        res.send(users[0]);
+                    }
+                    else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(err);
+                }
+            )
     }
+
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        for(var u in users) {
-            if(users[u].username === username) {
+        for (var u in users) {
+            if (users[u].username === username) {
                 res.send(users[u]);
                 return;
             }
@@ -78,12 +99,19 @@ module.exports = function(app) {
     function findUserById(req, res) {
         //var userId = parseInt(req.params.uid);
         var userId = req.params.uid;
-        for(var u in users) {
-            if(users[u]._id === userId) {
-                res.send(users[u]);
-                return;
-            }
-        }
-        res.send('0');
+        model.userModel.findUserById(userId)
+            .then(function (user) {
+                    if (user) {
+                        res.send(user);
+                    }
+                    else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(err);
+
+                }
+            )
     }
 };

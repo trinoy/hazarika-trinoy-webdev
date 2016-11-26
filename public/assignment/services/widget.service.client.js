@@ -22,7 +22,7 @@
 
 
         function createWidget(pageId, widget) {
-            widget.pageId = pageId;
+            widget._page = pageId;
             return $http.post("/api/page/"+pageId+"/widget", widget);
         }
 

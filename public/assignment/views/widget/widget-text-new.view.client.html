@@ -33,12 +33,28 @@
             <input ng-model="model.widget.text" type="text" class="form-control" id="text" placeholder="text">
         </div>
         <div class="form-group">
-            <label for="size">Size</label>
-            <input ng-model="model.widget.size" type="text" class="form-control" id="size" placeholder="Enter Size">
+            <label for="row">Rows</label>
+            <input ng-model="model.widget.rows" type="number" class="form-control" id="row" placeholder="Enter Row">
+        </div>
+
+        <div class="form-group">
+            <label for="placeholder">Placeholder</label>
+            <input ng-model="model.widget.placeholder" type="text" class="form-control" id="placeholder"
+                   placeholder="Place Holder">
+        </div>
+
+        <!--<div class="form-group">
+            <label for="formatted">Formatted</label>
+            <input ng-model="model.widget.formatted" type="checkbox" class="form-control" id="formatted">
+        </div>-->
+
+        <div class="checkbox">
+            <label><input ng-model="model.widget.formatted" type="checkbox" value="">Formatted</label>
         </div>
     </form>
 
-    <a class="btn btn-danger btn-block" ng-click="model.deleteWidget(model.widget)">{{model.buttonText}}</a>
+    <a class="btn btn-danger btn-block" ng-click="model.widget.widgetType='TEXT';model.createWidget(model.widget)
+    ">Create</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

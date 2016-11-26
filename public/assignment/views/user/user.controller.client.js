@@ -12,7 +12,9 @@
         vm.addAlert = addAlert;
         vm.closeAlert = closeAlert;
 
-        vm.alerts = [{msg: 'Try Demo User bob and password bob'}];
+        //vm.alerts = [{msg: 'Try Demo User bob and password bob'}];
+
+        vm.alerts = [{msg: 'Please Register to Continue'}];
 
         function addAlert() {
             vm.alerts.push({msg: 'Invalid Login Credentials'});
