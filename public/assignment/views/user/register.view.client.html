@@ -1,16 +1,35 @@
 <div class="container">
     <h1>Register</h1>
-    <input ng-model="model.user.username" type="text"
-           class="form-control"
-           placeholder="username"/>
-    <input type="password"
-           class="form-control"
-           placeholder="password"/>
-    <input ng-model="model.user.password"
-           type="password"
-           class="form-control"
-           placeholder="very password"/>
-    <a ng-click ="model.register(model.user)" class="btn btn-primary btn-block">Register</a>
-    <a class="btn btn-danger  btn-block"
-       href="#/login">Cancel</a>
+    <div ng-show="regLogin.$invalid && regLogin.$submitted" class="alert alert-danger" role="alert">
+        There were errors in your form
+        <ul>
+            <li ng-show="regLogin.username.$invalid">Username is required</li>
+            <li ng-show="regLogin.password.$invalid">Password is required</li>
+            <li ng-show="regLogin.verpassword.$invalid">Password Verify is required</li>
+        </ul>
+    </div>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <form name="regLogin" novalidate>
+        <input name="username"
+               ng-model="model.user.username" type="text"
+               required
+               class="form-control"
+               placeholder="username"/>
+        <input name="password"
+               type="password"
+               ng-model="model.user.password"
+               class="form-control"
+               required
+               placeholder="password"/>
+        <input name="verpassword"
+               ng-model="model.user.verpassword"
+               required
+               type="password"
+               class="form-control"
+               placeholder="very password"/>
+        <button ng-click="model.register(model.user)" class="btn btn-primary btn-block">Register</button>
+        <button onclick="window.location.href='#/login'" class="btn btn-danger  btn-block">Cancel</button>
+    </form>
 </div>

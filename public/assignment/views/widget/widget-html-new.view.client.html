@@ -21,7 +21,9 @@
 
 
 <div class="container-fluid container-fluid-custom-margin">
-
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <form>
         <div class="form-group">
             <label for="name">Name</label>
@@ -51,7 +53,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row navbar-text navbar-right pull-right">
-            <a class="profile-link" href="#/user/{{model.userId}}">
+            <a class="profile-link" href="#/user">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>

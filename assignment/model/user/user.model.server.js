@@ -10,14 +10,18 @@ module.exports = function(mongoose,app) {
         "createUser": createUser,
         "findUserById": findUserById,
         "updateUser" : updateUser,
-        //"findUserByUsername": findUserByUsername,
+        "findUserByUsername": findUserByUsername,
         "findUserByCredentials": findUserByCredentials,
        // "updateUser": updateUser,
         "deleteUser": deleteUser,
-        "setModel": setModel
-
+        "setModel": setModel,
+        "findUserByFacebookId" : findUserByFacebookId
     };
     return api;
+
+    function findUserByFacebookId(facebookId) {
+        return userModel.findOne({'facebook.id': facebookId});
+    }
 
     function setModel(_model){
         model = _model;
@@ -53,10 +57,17 @@ module.exports = function(mongoose,app) {
     }
 
     function findUserByCredentials(username,password){
-        return userModel.find(
+        return userModel.findOne(
             {
                 username:username,
                 password:password
+            });
+    }
+
+    function findUserByUsername(username){
+        return userModel.findOne(
+            {
+                username:username
             });
     }
 

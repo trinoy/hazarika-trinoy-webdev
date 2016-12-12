@@ -44,6 +44,10 @@
 
         function createWebsite(website) {
             if (website != undefined) {
+                if(!website.name){
+                    vm.error = "Website Name is Mandatory";
+                    return;
+                }
                 WebsiteService.createWebsite(vm.userId, website)
                     .success(function (websites) {
                         //vm.websites = websites;
@@ -88,6 +92,10 @@
 
         function updateWebsite(website) {
             if (website != undefined) {
+                if(!website.name){
+                    vm.error = "Website Name is Mandatory";
+                    return;
+                }
                 WebsiteService.updateWebsite(vm.websiteId, vm.website)
                     .success(function () {
                         //vm.website = website;

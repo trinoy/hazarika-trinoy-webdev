@@ -1,16 +1,35 @@
+
 <div class="container" ng-contoller="LoginController">
     <h1>Login</h1>
-    <input ng-model="model.user.username"
+    <div ng-show="formLogin.$invalid && formLogin.$submitted" class="alert alert-danger" role="alert">
+        There were errors in your form
+        <ul>
+            <li ng-show="formLogin.username.$invalid">Username is required</li>
+            <li ng-show="formLogin.password.$invalid">Password is required</li>
+        </ul>
+    </div>
+    <form name="formLogin" novalidate>
+    <input name="username"
+           ng-model="model.user.username"
            type="text"
            class="form-control"
+           autocapitalize="off"
+           autocorrect="off"
+           required
            placeholder="username"/>
-    <input ng-model="model.user.password"
+    <input name="password"
+           ng-model="model.user.password"
            type="password"
+           required
            class="form-control"
            placeholder="password"/>
-    <a ng-click="model.login(model.user)" class="btn btn-primary btn-block">Login</a>
-    <a class="btn btn-success btn-block"
-       href="#/register">Register</a>
+        <button ng-click="model.login(model.user)" class="btn btn-primary btn-block">Login</button>
+        <button onclick="window.location.href='#/register'" class="btn btn-success btn-block">Register</button>
+        <button onclick="window.location.href='/auth/facebook'" class="btn btn-primary btn-block">
+            <span class="fa fa-facebook"></span>
+            Facebook
+        </button>
+    </form>
 
     <div uib-alert ng-repeat="alert in model.alerts" ng-class="'alert-' + (alert.type || 'warning')"
          close="model.closeAlert($index)" dismiss-on-timeout="2000">{{model.alerts[0].msg}}

@@ -48,6 +48,10 @@
 
         function createPage(page) {
             if (page != undefined) {
+                if(!page.name){
+                    vm.error = "Page Name is Mandatory";
+                    return;
+                }
                 PageService.createPage(vm.websiteId, page)
                     .success(function (page) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
@@ -94,6 +98,10 @@
         function updatePage(page) {
             //$scope.user = user;
             if (page != undefined) {
+                if(!page.name){
+                    vm.error = "Page Name is Mandatory";
+                    return;
+                }
                 var pageLocal = PageService.updatePage(vm.pageId, vm.page)
                     .success(function () {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");

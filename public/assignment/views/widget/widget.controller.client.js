@@ -94,6 +94,10 @@
 
         function createWidget(widget) {
             if (widget != undefined) {
+                if(!widget.name){
+                    vm.error = "Widget Name is Mandatory";
+                    return;
+                }
                 WidgetService.createWidget(vm.pageId, widget)
                     .success(function (widget) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
@@ -130,6 +134,10 @@
 
         function updateWidget(widget) {
             if (widget != undefined) {
+                if(!widget.name){
+                    vm.error = "Widget Name is Mandatory";
+                    return;
+                }
                 WidgetService.updateWidget(vm.wgid, vm.widget)
                     .success(function (widget) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId +

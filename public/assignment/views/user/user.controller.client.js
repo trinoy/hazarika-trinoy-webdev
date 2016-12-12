@@ -6,15 +6,16 @@
         .controller("ProfileController", ProfileController);
 
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, $rootScope) {
         var vm = this;
         vm.login = login;
+        vm.logout = logout;
         vm.addAlert = addAlert;
         vm.closeAlert = closeAlert;
 
         //vm.alerts = [{msg: 'Try Demo User bob and password bob'}];
 
-        vm.alerts = [{msg: 'Please Register to Continue'}];
+        vm.alerts = [{msg: 'Please Login/Register to Continue'}];
 
         function addAlert() {
             vm.alerts.push({msg: 'Invalid Login Credentials'});
@@ -24,43 +25,82 @@
             vm.alerts.splice(index, 1);
         }
 
+        /*function login(user) {
+         vm.alerts.pop();
+         if (user != undefined) {
+         var promise = UserService.findUserByCredentials(user.username, user.password);
+         promise
+         .success(function (user) {
+         if (user === '0') {
+         addAlert();
+         } else {
+         $location.url("/user/" + user._id);
+         }
+         })
+         .error(function (data) {
+         console.log(data);
+         });
+         }
+         else {
+         addAlert();
+         }
+         }*/
+
         function login(user) {
-            vm.alerts.pop();
-            if (user != undefined) {
-                var promise = UserService.findUserByCredentials(user.username, user.password);
-                promise
-                    .success(function (user) {
-                        if (user === '0') {
-                            addAlert();
-                        } else {
-                            $location.url("/user/" + user._id);
-                        }
-                    })
-                    .error(function (data) {
-                        console.log(data);
+            // var promise = UserService.findUserByCredentials(username, password);
+            var promise = UserService.login(user);
+            promise
+                .success(function (user) {
+                    if (user.length == 0) {
+                        vm.error = "No such user";
+                        addAlert();
+                    } else {
+                        $rootScope.currentUser = user;
+                        $location.url("/user");
+                    }
+                })
+                .error(function (error) {
+                    console.log(error);
+                    addAlert();
+                });
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    },
+                    function (error) {
+                        console.log(error);
                     });
-            }
-            else {
-                addAlert();
-            }
         }
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService,$rootScope) {
         var vm = this;
         vm.register = register;
 
         function register(user) {
             if (user != undefined) {
+                if(user.password !=user.verpassword){
+                    vm.error = "Password and Verify Password Don`t Match";
+                    //vm.user.password="";
+                    //vm.user.verpassword="";
+                    return;
+                }
                 user.firstName = "Test";
                 user.lastName = "Test";
-                UserService.createUser(user)
+                UserService.register(user)
                     .success(function (user) {
                         if (user === '0') {
                             //addAlert();
                         } else {
                             vm.user = user;
-                            $location.url("/user/" + user._id);
+                            $rootScope.currentUser = user;
+                            $location.url("/user");
                         }
                     })
                     .error(function (data) {
@@ -70,9 +110,10 @@
         }
     }
 
-    function ProfileController($location,$routeParams, UserService) {
+    function ProfileController($location, $routeParams, UserService,$rootScope) {
         var vm = this;
-        vm.userId = $routeParams["uid"];
+        vm.userId =  $rootScope.currentUser._id;
+        //vm.userId = $routeParams["uid"];
         vm.title = "hello";
         vm.user = {};
 
